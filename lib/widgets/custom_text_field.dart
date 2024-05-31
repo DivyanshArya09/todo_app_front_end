@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app_front_end/core/constants/app_styles.dart';
 import 'package:todo_app_front_end/core/constants/color_palatte.dart';
-import 'package:todo_app_front_end/core/enums/password_validation_status,dart';
+import 'package:todo_app_front_end/core/enums/password_validator_status.dart';
 import 'package:todo_app_front_end/core/enums/text_field_type.dart';
 import 'package:todo_app_front_end/core/validators/validators.dart';
 import 'package:todo_app_front_end/utils/custom_spacers.dart';

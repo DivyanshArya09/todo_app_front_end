@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_front_end/features/authentication/presentation/pages/login_page.dart';
+import 'package:todo_app_front_end/features/authentication/presentation/pages/sign_up_page.dart';
+import 'package:todo_app_front_end/features/home/presentation/pages/home_page.dart';
+import 'package:todo_app_front_end/routes/app_routes.dart';
 
 final kNavigatorKey = GlobalKey<NavigatorState>();
 
 class CustomNavigator {
   static Route<dynamic> controller(RouteSettings settings) {
     switch (settings.name) {
+      case AppPages.login:
+        return MaterialPageRoute(
+          builder: (context) => const LoginPage(),
+        );
+      case AppPages.signUp:
+        return MaterialPageRoute(
+          builder: (context) => const SignUpPage(),
+        );
+      case AppPages.home:
+        return MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        );
       default:
         throw ('This route name does not exit');
     }

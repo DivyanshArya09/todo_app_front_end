@@ -4,7 +4,7 @@ class ColorPalette {
   //!======================MAIN=============================
 
   // ========================PRIMARY=============================
-  static const Color primary = Color.fromRGBO(84, 58, 248, 1);
+  static const Color primary = Color.fromRGBO(40, 14, 242, 1);
   static const Color primary400 = Color.fromRGBO(178, 166, 252, 1);
   static const Color primary300 = Color.fromRGBO(144, 127, 250, 1);
   static const Color primary200 = Color.fromRGBO(208, 201, 253, 1);

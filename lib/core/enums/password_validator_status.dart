@@ -1,5 +1,5 @@
-import 'package:dyme/core/constants/color_palette.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app_front_end/core/constants/color_palatte.dart';
 
 enum PasswordValidationStatus { WEAK, MEDIUM, STRONG, SHORT }
 

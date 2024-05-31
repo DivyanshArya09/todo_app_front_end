@@ -13,42 +13,40 @@ import 'package:todo_app_front_end/utils/custom_spacers.dart';
 import 'package:todo_app_front_end/widgets/custom_button.dart';
 import 'package:todo_app_front_end/widgets/custom_text_field.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  late TextEditingController _emailTC, _passwordTC, _nameTC;
+class _LoginPageState extends State<LoginPage> {
   late StreamController<bool> _btnStream;
+  late TextEditingController _emailTC, _passwordTC;
+  bool isAgreedWithTerms = false;
   late GlobalKey<FormState> _formKey;
 
   @override
   void initState() {
-    _formKey = GlobalKey<FormState>();
     _btnStream = StreamController<bool>.broadcast();
     _emailTC = TextEditingController();
     _passwordTC = TextEditingController();
-    _nameTC = TextEditingController();
+    _formKey = GlobalKey<FormState>();
     super.initState();
   }
 
   @override
   void dispose() {
+    _btnStream.close();
     _emailTC.dispose();
     _passwordTC.dispose();
-    _nameTC.dispose();
-    _btnStream.close();
-    _formKey.currentState?.dispose();
     super.dispose();
   }
 
   bool get isValid =>
       _emailTC.text.isNotEmpty &&
       _passwordTC.text.isNotEmpty &&
-      _nameTC.text.isNotEmpty;
+      isAgreedWithTerms;
 
   @override
   Widget build(BuildContext context) {
@@ -91,26 +89,17 @@ class _SignUpPageState extends State<SignUpPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          CustomSpacers.width14,
           Text(
-            'Welcome to Todo App',
-            style: AppTextStyle.h1Dark_mr.copyWith(
-              color: ColorPalette.primary,
-            ),
+            'Hi, Welcome! 👋',
+            style: AppTextStyle.h1Dark_mr,
           ),
-          CustomSpacers.width6,
-          CustomSpacers.height12,
-          CustomTextField(
-            onChanged: (value) {
-              if (value.isNotEmpty) {
-                _btnStream.add(isValid);
-              }
-            },
-            validator: (value) => Validators.validateName(value ?? ''),
-            controller: _nameTC,
-            hint: 'Full Name',
-            title: 'Full Name',
+          CustomSpacers.height6,
+          Text(
+            'Hello there, sign in to continue',
+            style: AppTextStyle.bodyMedium_dark,
           ),
-          CustomSpacers.height16,
+          CustomSpacers.height30,
           CustomTextField(
             onChanged: (value) {
               if (value.isNotEmpty) {
@@ -134,10 +123,22 @@ class _SignUpPageState extends State<SignUpPage> {
             hint: 'Enter your Password',
             title: 'Password',
           ),
+          CustomSpacers.height6,
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              textAlign: TextAlign.end,
+              'Forgot Password',
+              style: AppTextStyle.h5Dark_in,
+            ),
+          ),
           CustomSpacers.height24,
           AuthTermsAndConditionWidget(
-            onChanged: (value) {},
-            type: AuthTermsAndConditionType.signUp,
+            onChanged: (value) {
+              isAgreedWithTerms = value;
+              _btnStream.add(isValid);
+            },
+            type: AuthTermsAndConditionType.login,
           ),
           CustomSpacers.height16,
           _buildButton(),
@@ -146,21 +147,44 @@ class _SignUpPageState extends State<SignUpPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Have an account?',
+                'Don\'t have an account?',
                 style: AppTextStyle.bodyMedium_dark.copyWith(
                   color: ColorPalette.greyscale700,
                 ),
               ),
               CustomSpacers.width4,
               GestureDetector(
-                onTap: () => CustomNavigator.pushTo(context, AppPages.login),
+                onTap: () => CustomNavigator.pushTo(context, AppPages.signUp),
                 child: Text(
-                  'Sign in',
+                  'Create new',
                   style: AppTextStyle.bodyMedium_dark.copyWith(
                       color: ColorPalette.primary, fontWeight: FontWeight.w600),
                 ),
               ),
             ],
+          ),
+          CustomSpacers.height16,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBackButton() {
+    return Positioned(
+      top: MediaQuery.of(context).padding.top,
+      left: 16.w,
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.arrow_back_ios,
+            ),
+          ),
+          CustomSpacers.width14,
+          Text(
+            'Sign in',
+            style: AppTextStyle.h3Light_mr,
           ),
         ],
       ),
@@ -176,40 +200,17 @@ class _SignUpPageState extends State<SignUpPage> {
             strButtonText: 'Sign in',
             buttonAction: () {
               if (_formKey.currentState!.validate()) {
-                // CustomNavigator.pushReplace(
-                //     context, AppPages.completeYourProfilePage);
+                // CustomNavigator.pushTo(context, AppPages.dashboard);
               }
             },
           );
         }
         return CustomButton.primary(
-          strButtonText: 'Sign up',
+          strButtonText: 'Sign in',
           buttonAction: () {},
           isDisabled: true,
         );
       },
-    );
-  }
-
-  Widget _buildBackButton() {
-    return Positioned(
-      top: MediaQuery.of(context).padding.top + 16.h,
-      left: 16.w,
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: ColorPalette.white,
-            ),
-          ),
-          Text(
-            'Create New Account',
-            style: AppTextStyle.h3Light_mr,
-          ),
-        ],
-      ),
     );
   }
 }

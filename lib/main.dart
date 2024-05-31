@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todo_app_front_end/core/themes/app_themes.dart';
 import 'package:todo_app_front_end/features/authentication/presentation/pages/sign_up_page.dart';
 import 'package:todo_app_front_end/routes/app_routes.dart';
 import 'package:todo_app_front_end/routes/customNavigator.dart';
@@ -19,13 +20,14 @@ class MyApp extends StatelessWidget {
         375.0,
         812,
       ),
-      builder: (context, child) => const MaterialApp(
+      builder: (context, child) => MaterialApp(
         themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
-        title: 'Dyme',
+        title: 'Todo App',
+        theme: AppTheme.lightTheme,
         initialRoute: AppPages.appEntry,
         onGenerateRoute: CustomNavigator.controller,
-        home: SignUpPage(),
+        home: const SignUpPage(),
       ),
     );
   }

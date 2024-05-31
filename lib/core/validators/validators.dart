@@ -1,4 +1,4 @@
-import 'package:todo_app_front_end/core/enums/password_validation_status,dart';
+import 'package:todo_app_front_end/core/enums/password_validator_status.dart';
 
 class Validators {
   static String? validateEmail(String email) {
