@@ -1,0 +1,4 @@
+enum ButtonType {
+  PRIMARY,
+  SECONDARY,
+}
